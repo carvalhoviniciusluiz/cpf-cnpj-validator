@@ -1,6 +1,14 @@
 # cpf-cnpj-validator
 Valida o formato de CPF e CNPJ com o Joi.
 
+[![travis][travis-image]][travis-url]
+[![npm][npm-image]][npm-url]
+
+[travis-image]: https://travis-ci.org/carvalhoviniciusluiz/cpf-cnpj-validator.svg?branch=master
+[travis-url]: https://travis-ci.org/carvalhoviniciusluiz/cpf-cnpj-validator
+[npm-image]: https://img.shields.io/npm/v/cpf-cnpj-validator.svg?style=flat
+[npm-url]: https://npmjs.org/package/cpf-cnpj-validator
+
 ### Instalação:
 ```
 npm i cpf-cnpj-validator -S

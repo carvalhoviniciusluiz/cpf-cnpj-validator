@@ -1,0 +1,26 @@
+{
+  "name": "cpf-cnpj-validator",
+  "version": "0.0.1",
+  "description": "Valida o formato de CPF e CNPJ com o Joi.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/issues"
+  },
+  "homepage": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator#readme",
+  "keywords": [
+    "node",
+    "joi",
+    "cpf",
+    "cnpj",
+    "validator"
+  ]
+}

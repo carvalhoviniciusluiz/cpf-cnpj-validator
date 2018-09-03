@@ -3,11 +3,33 @@
   "version": "0.0.1",
   "description": "Valida o formato de CPF e CNPJ com o Joi.",
   "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "ts-node jest.startup.ts --detectOpenHandles --forceExit --no-cache",
+    "pretest": "npm run build",
+    "prepublishOnly": "npm run test"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator.git"
@@ -16,6 +38,16 @@
     "url": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/issues"
   },
   "homepage": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator#readme",
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "@types/joi": "^13.4.4",
+    "jest": "^23.5.0",
+    "jest-cli": "^23.5.0",
+    "joi": "^13.6.0",
+    "ts-jest": "^23.1.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.0.3"
+  },
   "keywords": [
     "node",
     "joi",

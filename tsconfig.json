@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "typeRoots": [
+      "./types"
+    ],
+    "types": [
+      "default"
+    ],
+    "outDir": "./",
     "target": "es2018",
     "module": "commonjs",
     "lib": [ "es2018", "dom" ],
@@ -8,7 +14,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "include": ["types/**/*.d.ts"],
   "exclude": [
     "**/*.test.ts",
     "./jest.startup.ts"

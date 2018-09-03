@@ -1,6 +1,6 @@
 {
   "name": "cpf-cnpj-validator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Valida o formato de CPF e CNPJ com o Joi.",
   "main": "index.js",
   "types": "types/default/index.d.ts",

@@ -2,6 +2,8 @@ import * as Joi from 'joi'
 import * as cpf from './cpf'
 import * as cnpj from './cnpj'
 
+export { cpf, cnpj }
+
 export default {
   base: Joi.string(),
   name: 'document',

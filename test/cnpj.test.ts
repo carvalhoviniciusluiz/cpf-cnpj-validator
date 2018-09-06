@@ -1,6 +1,6 @@
 import 'jest'
 
-import * as cnpj from '../src/cnpj'
+import { cnpj } from '../src'
 
 describe('CNPJ', () => {
   test ('números de listas negras', () => {

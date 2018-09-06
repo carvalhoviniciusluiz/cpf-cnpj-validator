@@ -1,6 +1,6 @@
 import 'jest'
 
-import * as cpf from '../src/cpf'
+import { cpf } from '../src'
 
 describe('CPF', () => {
   test ('números de listas negras', () => {

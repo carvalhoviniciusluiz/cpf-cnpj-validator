@@ -1,8 +1,6 @@
 import 'jest'
 
-import * as cpf from '../src/cpf'
-import * as cnpj from '../src/cnpj'
-import validator from '../src'
+import validator, { cpf, cnpj } from '../src'
 
 declare var require: any
 

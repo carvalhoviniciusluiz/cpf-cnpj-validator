@@ -1,21 +1,24 @@
 {
   "compilerOptions": {
-    "typeRoots": [
-      "./types"
-    ],
-    "types": [
-      "default"
-    ],
-    "outDir": "./",
     "target": "es2018",
-    "module": "commonjs",
     "lib": [ "es2018", "dom" ],
     "removeComments": true,
     "skipLibCheck": true,
-    "esModuleInterop": true
+
+    // Module resolution
+    "module": "es2015",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+
+    // Type definitions
+    "declaration": true,
+    "declarationDir": "types/"
   },
   "exclude": [
+    "dist/",
+    "types/",
     "**/*.test.ts",
-    "./jest.startup.ts"
+    "jest.startup.ts"
   ]
 }

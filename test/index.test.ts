@@ -2,10 +2,11 @@ import 'jest'
 
 import * as cpf from '../src/cpf'
 import * as cnpj from '../src/cnpj'
+import validator from '../src'
 
 declare var require: any
 
-const Joi = require('joi').extend(require('../src'))
+const Joi = require('joi').extend(validator)
 
 describe('Test CPF', () => {
   const cpfSchema = Joi.document().cpf().required()

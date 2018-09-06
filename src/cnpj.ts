@@ -33,7 +33,7 @@ export const verifierDigit: Function = (digits: string): number => {
 
 export const strip: Function = (number: string, strict?: string): string => {
   const regex: RegExp = strict ? STRICT_STRIP_REGEX : LOOSE_STRIP_REGEX
-  return (number || '').toString().replace(regex, '')
+  return (number || '').replace(regex, '')
 }
 
 export const format: Function = (number): string => {

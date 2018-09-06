@@ -2,7 +2,7 @@ import * as Joi from 'joi'
 import * as cpf from './cpf'
 import * as cnpj from './cnpj'
 
-export = {
+export default {
   base: Joi.string(),
   name: 'document',
   language: {

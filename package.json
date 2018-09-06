@@ -2,16 +2,21 @@
   "name": "cpf-cnpj-validator",
   "version": "0.0.3",
   "description": "Valida o formato de CPF e CNPJ com o Joi.",
-  "main": "index.js",
-  "types": "types/default/index.d.ts",
+  "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
+  "license": "MIT",
+  "main": "dist/cpf-cnpj-validator.cjs.js",
+  "types": "types/index.d.ts",
+  "module": "dist/cpf-cnpj-validator.es.js",
   "scripts": {
-    "build": "tsc",
+    "build": "bili src/index.ts",
     "test": "ts-node jest.startup.ts --detectOpenHandles --forceExit --no-cache",
     "pretest": "npm run build",
     "prepublishOnly": "npm run test"
   },
-  "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
-  "license": "MIT",
+  "files": [
+    "dist/",
+    "types/"
+  ],
   "jest": {
     "testEnvironment": "node",
     "transform": {
@@ -38,9 +43,11 @@
   "devDependencies": {
     "@types/jest": "^23.3.1",
     "@types/joi": "^13.4.4",
+    "bili": "^3.1.2",
     "jest": "^23.5.0",
     "jest-cli": "^23.5.0",
     "joi": "^13.6.0",
+    "rollup-plugin-typescript2": "^0.17.0",
     "ts-jest": "^23.1.4",
     "ts-node": "^7.0.1",
     "typescript": "^3.0.3"

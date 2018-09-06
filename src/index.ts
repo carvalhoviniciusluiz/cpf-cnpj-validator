@@ -1,6 +1,6 @@
 import * as Joi from 'joi'
-import * as cpf from './cpf'
-import * as cnpj from './cnpj'
+import cpf from './cpf'
+import cnpj from './cnpj'
 
 export { cpf, cnpj }
 

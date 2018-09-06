@@ -16,7 +16,13 @@ const BLACKLIST: Array<string> = [
 const STRICT_STRIP_REGEX: RegExp = /[.-]/g
 const LOOSE_STRIP_REGEX: RegExp = /[^\d]/g
 
-export const verifierDigit: Function = (digits: string): number => {
+export type verifierDigit = (digits: string) => number
+export type strip = (number: string, strict?: boolean) => string
+export type format = (number: string) => string
+export type isValid = (number: string, strict?: boolean) => boolean
+export type generate = (formatted?: boolean) => string
+
+const verifierDigit: verifierDigit = (digits: string): number => {
   const numbers: Array<number> = digits
     .split('')
     .map(number => {
@@ -30,16 +36,16 @@ export const verifierDigit: Function = (digits: string): number => {
   return (mod < 2 ? 0 : 11 - mod)
 }
 
-export const strip: Function = (number: string, strict?: string): string => {
+const strip: strip = (number: string, strict?: boolean): string => {
   const regex: RegExp = strict ? STRICT_STRIP_REGEX : LOOSE_STRIP_REGEX
   return (number || '').replace(regex, '')
 }
 
-export const format: Function = (number: string): string => {
+const format: format = (number: string): string => {
   return strip(number).replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4')
 }
 
-export const isValid: Function = (number: string, strict?: string): boolean => {
+const isValid: isValid = (number: string, strict?: boolean): boolean => {
   const stripped: string = strip(number, strict)
 
   // CPF must be defined
@@ -64,7 +70,7 @@ export const isValid: Function = (number: string, strict?: string): boolean => {
   return numbers.substr(-2) === stripped.substr(-2)
 }
 
-export const generate: Function = (formatted?: string): string => {
+const generate: generate = (formatted?: boolean): string => {
   let numbers: string = ''
 
   for (let i = 0; i < 9; i += 1) {
@@ -75,4 +81,12 @@ export const generate: Function = (formatted?: string): string => {
   numbers += verifierDigit(numbers)
 
   return (formatted ? format(numbers) : numbers)
+}
+
+export default {
+  verifierDigit,
+  strip,
+  format,
+  isValid,
+  generate,
 }

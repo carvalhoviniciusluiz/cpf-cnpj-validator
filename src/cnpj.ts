@@ -36,11 +36,11 @@ export const strip: Function = (number: string, strict?: string): string => {
   return (number || '').replace(regex, '')
 }
 
-export const format: Function = (number): string => {
+export const format: Function = (number: string): string => {
   return strip(number).replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5')
 }
 
-export const isValid: Function = (number: string, strict: string): boolean => {
+export const isValid: Function = (number: string, strict?: string): boolean => {
   const stripped: string = strip(number, strict)
 
   // CNPJ must be defined
@@ -65,7 +65,7 @@ export const isValid: Function = (number: string, strict: string): boolean => {
   return numbers.substr(-2) === stripped.substr(-2)
 }
 
-export const generate: Function = (formatted): string => {
+export const generate: Function = (formatted?: string): string => {
   let numbers = ''
 
   for (let i = 0; i < 12; i += 1) {

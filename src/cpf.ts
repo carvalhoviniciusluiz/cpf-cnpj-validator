@@ -35,11 +35,11 @@ export const strip: Function = (number: string, strict?: string): string => {
   return (number || '').replace(regex, '')
 }
 
-export const format: Function = (number: string) => {
+export const format: Function = (number: string): string => {
   return strip(number).replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4')
 }
 
-export const isValid: Function = (number: string, strict: string): boolean => {
+export const isValid: Function = (number: string, strict?: string): boolean => {
   const stripped: string = strip(number, strict)
 
   // CPF must be defined
@@ -64,7 +64,7 @@ export const isValid: Function = (number: string, strict: string): boolean => {
   return numbers.substr(-2) === stripped.substr(-2)
 }
 
-export const generate: Function = (formatted): string => {
+export const generate: Function = (formatted?: string): string => {
   let numbers: string = ''
 
   for (let i = 0; i < 9; i += 1) {

@@ -40,13 +40,15 @@
     "url": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/issues"
   },
   "homepage": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator#readme",
+  "dependencies": {
+    "joi": "^13.6.0"
+  },
   "devDependencies": {
     "@types/jest": "^23.3.1",
     "@types/joi": "^13.4.4",
     "bili": "^3.1.2",
     "jest": "^23.5.0",
     "jest-cli": "^23.5.0",
-    "joi": "^13.6.0",
     "rollup-plugin-typescript2": "^0.17.0",
     "ts-jest": "^23.1.4",
     "ts-node": "^7.0.1",

@@ -1,4 +1,4 @@
-import * as Joi from 'joi'
+import * as Joi from '@hapi/joi'
 import cpf from './cpf'
 import cnpj from './cnpj'
 
@@ -13,7 +13,7 @@ export default {
   },
   rules: [{
     name: 'cnpj',
-    validate (_params, value, state, options) {
+    validate (_params: any, value: string, state: any, options: any) {
       if (!cnpj.isValid(value)) {
         return this.createError('document.cnpj', { v: value }, state, options)
       }
@@ -22,7 +22,7 @@ export default {
     }
   }, {
     name: 'cpf',
-    validate (_params, value, state, options) {
+    validate (_params: any, value: string, state: any, options: any) {
       if (!cpf.isValid(value)) {
         return this.createError('document.cpf', { v: value }, state, options)
       }

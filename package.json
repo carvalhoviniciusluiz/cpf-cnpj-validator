@@ -1,6 +1,6 @@
 {
   "name": "cpf-cnpj-validator",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Valida e formata strings de CPF ou CNPJ.",
   "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
   "license": "MIT",
@@ -41,18 +41,18 @@
   },
   "homepage": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator#readme",
   "dependencies": {
-    "joi": "^13.6.0"
+    "@hapi/joi": "^15.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.1",
-    "@types/joi": "^13.4.4",
-    "bili": "^3.1.2",
-    "jest": "^23.5.0",
-    "jest-cli": "^23.5.0",
-    "rollup-plugin-typescript2": "^0.17.0",
-    "ts-jest": "^23.1.4",
+    "@types/hapi__joi": "^15.0.3",
+    "@types/jest": "^23.3.14",
+    "bili": "^3.4.2",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0",
+    "rollup-plugin-typescript2": "^0.17.2",
+    "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
-    "typescript": "^3.0.3"
+    "typescript": "^3.5.3"
   },
   "keywords": [
     "node",

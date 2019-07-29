@@ -57,11 +57,12 @@ Veja mais exemplos práticos consultando os testes para [CPF](./test/cpf.test.ts
 
 ### Joi
 
-[Joi](https://www.npmjs.com/package/joi) é uma excelente biblioteca para validação de objetos javascript que permite a construção de mecanismos personalizados para tal.
+[@hapi/joi](https://www.npmjs.com/package/@hapi/joi) é uma excelente biblioteca para validação de objetos javascript que permite a construção de mecanismos personalizados para tal.
 A biblioteca [cpf-cnpj-validator](https://www.npmjs.com/package/cpf-cnpj-validator) disponibiliza um mecanismo personalizado para Joi capas de validar se uma string pode ser, ou não, um número válido de CPF ou CNPJ:
 
 ```js
-const Joi = require('joi').extend(require('cpf-cnpj-validator'));
+const validator = require('cpf-cnpj-validator')
+const Joi = require('@hapi/joi').extend(validator)
 
 const cnpjSchema = Joi.document().cnpj();
 const cpfSchema = Joi.document().cpf();

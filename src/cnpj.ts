@@ -60,7 +60,7 @@ const isValid: isValid = (number: string, strict?: boolean): boolean => {
   }
 
   // CNPJ can't be blacklisted
-  if (BLACKLIST.indexOf(stripped) !== -1) {
+  if (BLACKLIST.includes(stripped)) {
     return false
   }
 
@@ -72,7 +72,7 @@ const isValid: isValid = (number: string, strict?: boolean): boolean => {
 }
 
 const generate: generate = (formatted?: boolean): string => {
-  let numbers = ''
+  let numbers = null
 
   for (let i = 0; i < 12; i += 1) {
     numbers += Math.floor(Math.random() * 9)

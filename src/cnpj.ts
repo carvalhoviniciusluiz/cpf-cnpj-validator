@@ -72,7 +72,7 @@ const isValid: isValid = (number: string, strict?: boolean): boolean => {
 }
 
 const generate: generate = (formatted?: boolean): string => {
-  let numbers = null
+  let numbers: string = ''
 
   for (let i = 0; i < 12; i += 1) {
     numbers += Math.floor(Math.random() * 9)

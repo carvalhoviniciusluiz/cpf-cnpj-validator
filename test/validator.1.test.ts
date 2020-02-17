@@ -1,10 +1,11 @@
 import 'jest'
 
+import _joi from '@hapi/joi'
 import validator, { cpf, cnpj } from '../src'
 
 declare var require: any
 
-const Joi = require('@hapi/joi').extend(validator)
+const Joi = _joi.extend(validator)
 
 describe('Test CPF', () => {
   const cpfSchema = Joi.document().cpf().required()

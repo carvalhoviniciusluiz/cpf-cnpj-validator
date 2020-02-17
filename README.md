@@ -62,6 +62,9 @@ A biblioteca [cpf-cnpj-validator](https://www.npmjs.com/package/cpf-cnpj-validat
 
 ```js
 const validator = require('cpf-cnpj-validator')
+// or
+// const { validator } = require('cpf-cnpj-validator')
+//
 const Joi = require('@hapi/joi').extend(validator)
 
 const cnpjSchema = Joi.document().cnpj();
@@ -76,7 +79,7 @@ Joi.validate('38313108000107', cnpjSchema);
 // #=> true
 ```
 
-Maiores informações podem ser obtidas com o teste de  [validação.](./test/index.test.ts)
+Maiores informações podem ser obtidas com os testes de [validação 1](./test/validator.1.test.ts) e [validação 2](./test/validator.2.test.ts).
 
 ### Tests
 ```shell

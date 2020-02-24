@@ -14,10 +14,10 @@ Valida e formata strings de CPF ou CNPJ.
 npm i cpf-cnpj-validator -S
 ```
 
-### Note:
-Requer Node ``>=8.0.0``.
+### Requer:
+Node ``^8.0.0``.
 
-@hapi/joi ``<=15.1.0``.
+@hapi/joi ``^17.1.0``.
 
 ### Uso:
 
@@ -91,4 +91,4 @@ npm test
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2018-present
+Copyright (c) 2020-present

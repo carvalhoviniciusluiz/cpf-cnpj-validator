@@ -1,64 +1,69 @@
 import 'jest'
 
-import _joi from '@hapi/joi'
+import _joi  from '@hapi/joi'
 import validator, { cpf, cnpj } from '../src'
-
-declare var require: any
 
 const Joi = _joi.extend(validator)
 
 describe('Test CPF', () => {
   const cpfSchema = Joi.document().cpf().required()
 
-  test ('deve ser capaz de validar o CPF apenas como número', () => {
+  test ('deve ser capaz de validar o CPF apenas como número', async () => {
     const validCPF = cpf.generate()
-    Joi.validate(validCPF, cpfSchema, (err: any, value: any) => {
-      expect(err).toBeNull()
-      expect(value).toEqual(validCPF)
-    })
+    const value = await cpfSchema.validateAsync(validCPF)
+
+    expect(value).toEqual(validCPF)
   })
 
-  test ('deve ser capaz de validar o CPF como string com pontos e barras', () => {
+  test ('deve ser capaz de validar o CPF como string com pontos e barras', async () => {
     const validCPF = cpf.generate(true)
-    Joi.validate(validCPF, cpfSchema, (err: any, value: any) => {
-      expect(err).toBeNull()
-      expect(value).toEqual(validCPF)
-    })
+    const value = await cpfSchema.validateAsync(validCPF)
+
+    expect(value).toEqual(validCPF)
   })
 
-  test ('deve falhar no CPF inválido', () => {
+  test ('deve falhar no CPF inválido', async () => {
     const cpf = '01283191283'
-    Joi.validate(cpf, cpfSchema, (err: any, value: any) => {
-      expect(err).toEqual(expect.anything())
-      expect(value).toEqual(cpf)
-    })
+    try {
+      await cpfSchema.validateAsync(cpf)
+    } catch (error) {
+      expect(error.details).toEqual([{
+        message: 'CPF inválido',
+        path: [],
+        type: 'document.cpf',
+        context: { label: 'value', value: '01283191283' }
+      }])
+    }
   })
 })
 
 describe('Test CNPJ', () => {
   const cnpjSchema = Joi.document().cnpj().required()
 
-  test ('deve ser capaz de validar o CNPJ apenas como número', () => {
+  test ('deve ser capaz de validar o CNPJ apenas como número', async () => {
     const validCNPJ = cnpj.generate()
-    Joi.validate(validCNPJ, cnpjSchema, (err: any, value: any) => {
-      expect(err).toBeNull()
-      expect(value).toEqual(validCNPJ)
-    })
+    const value = await cnpjSchema.validateAsync(validCNPJ)
+
+    expect(value).toEqual(validCNPJ)
   })
 
-  test ('deve ser capaz de validar o CNPJ como uma string com pontos e barras', () => {
+  test ('deve ser capaz de validar o CNPJ como uma string com pontos e barras', async () => {
     const validCNPJ = cnpj.generate(true)
-    Joi.validate(validCNPJ, cnpjSchema, (err: any, value: any) => {
-      expect(err).toBeNull()
-      expect(value).toEqual(validCNPJ)
-    })
+    const value = await cnpjSchema.validateAsync(validCNPJ)
+    expect(value).toEqual(validCNPJ)
   })
 
-  test ('deve falhar no CNPJ inválido', () => {
+  test ('deve falhar no CNPJ inválido', async () => {
     const cnpj = '0128319128312'
-    Joi.validate(cnpj, cnpjSchema, (err: any, value: any) => {
-      expect(err).toEqual(expect.anything())
-      expect(value).toEqual(cnpj)
-    })
+    try {
+      await cnpjSchema.validateAsync(cnpj)
+    } catch (error) {
+      expect(error.details).toEqual([{
+        message: 'CNPJ inválido',
+        path: [],
+        type: 'document.cnpj',
+        context: { label: 'value', value: '0128319128312' }
+      }])
+    }
   })
 })

@@ -4,38 +4,32 @@ import cnpj from './cnpj'
 export { cpf, cnpj }
 
 export const validator = joi => ({
+  type: 'document',
   base: joi.string(),
-  name: 'document',
-  language: {
-    cnpj: 'informado é inválido',
-    cpf: 'informado é inválido'
+  messages: {
+    'document.cpf': 'CPF inválido',
+    'document.cnpj': 'CNPJ inválido'
   },
-  rules: [
-    {
-      name: 'cnpj',
-      validate(_, value, state, options) {
-        if (!cnpj.isValid(value)) {
-          return this.createError(
-            'document.cnpj',
-            { v: value },
-            state,
-            options
-          );
+  rules: {
+    cpf: {
+      validate(value: any, helpers: any, args: any, options: any) {
+        if (!cpf.isValid(value)) {
+          return helpers.error('document.cpf');
         }
 
-        return value;
-      },
-    }, {
-      name: 'cpf',
-      validate (_: any, value: string, state: any, options: any) {
-        if (!cpf.isValid(value)) {
-          return this.createError('document.cpf', { v: value }, state, options)
+        return value
+      }
+    },
+    cnpj: {
+      validate(value: any, helpers: any, args: any, options: any) {
+        if (!cnpj.isValid(value)) {
+          return helpers.error('document.cnpj');
         }
 
         return value
       }
     }
-  ],
-})
+  }
+});
 
 export default validator;

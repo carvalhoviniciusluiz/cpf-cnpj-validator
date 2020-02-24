@@ -17,6 +17,8 @@ npm i cpf-cnpj-validator -S
 ### Note:
 Requer Node ``>=8.0.0``.
 
+@hapi/joi ``<=15.1.0``.
+
 ### Uso:
 
 ```js

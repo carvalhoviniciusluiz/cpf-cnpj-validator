@@ -9,15 +9,15 @@ Valida e formata strings de CPF ou CNPJ.
 [npm-image]: https://img.shields.io/npm/v/cpf-cnpj-validator.svg?style=flat
 [npm-url]: https://npmjs.org/package/cpf-cnpj-validator
 
-### Instalação:
-```
-npm i cpf-cnpj-validator -S
-```
-
 ### Requer:
 Node ``^8.0.0``.
 
 @hapi/joi ``^17.1.0``.
+
+### Instalação:
+```
+npm i cpf-cnpj-validator -S
+```
 
 ### Uso:
 
@@ -73,11 +73,11 @@ const cnpjSchema = Joi.document().cnpj();
 const cpfSchema = Joi.document().cpf();
 
 // valida o CPF
-Joi.validate('54271113107', cpfSchema);
+cpfSchema.validate('54271113107');
 // #=> true
 
 // valida o CNPJ
-Joi.validate('38313108000107', cnpjSchema);
+cnpjSchema.validate('38313108000107');
 // #=> true
 ```
 
@@ -87,6 +87,17 @@ Maiores informações podem ser obtidas com os testes de [validação 1](./test/
 ```shell
 npm test
 ```
+
+## :rocket: Serviços
+
+| Site | Descrição |
+|---------|--------------|
+| [GERADOR_CPF] | Interface para geração de números de CPF |
+| [GERADOR_CNPJ] | Interface para geração de números de CNPJ |
+
+[GERADOR_CPF]: https://geradorcpf.org/
+[GERADOR_CNPJ]: https://geradorcnpj.org/
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)

@@ -17,7 +17,6 @@
   },
   "exclude": [
     "dist/",
-    "types/",
     "**/*.test.ts",
     "jest.startup.ts"
   ]

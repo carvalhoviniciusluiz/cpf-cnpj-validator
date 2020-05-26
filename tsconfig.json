@@ -12,7 +12,7 @@
     "moduleResolution": "node",
 
     // Type definitions
-    "declaration": true,
+    "declaration": false,
     "declarationDir": "types/"
   },
   "exclude": [

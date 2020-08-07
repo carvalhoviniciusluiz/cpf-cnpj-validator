@@ -44,6 +44,7 @@ cpf.format(num);
 
 ```js
 import { cnpj } from 'cpf-cnpj-validator';
+// or const { cnpj } = require('cpf-cnpj-validator');
 
 // gera um número de cpnj
 const num = cnpj.generate();

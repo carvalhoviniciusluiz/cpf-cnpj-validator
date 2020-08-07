@@ -3,6 +3,8 @@ Valida e formata strings de CPF ou CNPJ.
 
 [![travis][travis-image]][travis-url]
 [![npm][npm-image]][npm-url]
+![GitHub top language](https://img.shields.io/github/languages/top/carvalhoviniciusluiz/cpf-cnpj-validator)
+![GitHub last commit](https://img.shields.io/github/last-commit/carvalhoviniciusluiz/cpf-cnpj-validator)
 
 [travis-image]: https://travis-ci.org/carvalhoviniciusluiz/cpf-cnpj-validator.svg?branch=master
 [travis-url]: https://travis-ci.org/carvalhoviniciusluiz/cpf-cnpj-validator
@@ -20,9 +22,10 @@ npm i cpf-cnpj-validator -S
 ```
 
 ### Uso:
-
+:warning: __NOTE__: Os exemplos estão na versão es6, mas você pode está usando a sintaxe antiga como preferir.
 ```js
-const { cpf } = require('cpf-cnpj-validator');
+import { cpf } from 'cpf-cnpj-validator'; 
+// or const { cpf } = require('cpf-cnpj-validator');
 
 // gera um número de cpf
 const num = cpf.generate();
@@ -37,10 +40,10 @@ cpf.format(num);
 // #=> 256.344.287-77
 ```
 
-__NOTE__: os módulos de cpf e cnpj possuem métodos nomeados de forma igual diferindo se apenas os resultados.
+:warning: __NOTE__: Os módulos de cpf e cnpj possuem métodos nomeados de forma igual diferindo se apenas os resultados.
 
 ```js
-const { cnpj } = require('cpf-cnpj-validator');
+import { cnpj } from 'cpf-cnpj-validator';
 
 // gera um número de cpnj
 const num = cnpj.generate();
@@ -63,7 +66,7 @@ Veja mais exemplos práticos consultando os testes para [CPF](./test/cpf.test.ts
 A biblioteca [cpf-cnpj-validator](https://www.npmjs.com/package/cpf-cnpj-validator) disponibiliza um mecanismo personalizado para Joi capaz de validar se uma string pode ser, ou não, um número válido de CPF ou CNPJ:
 
 ```js
-const validator = require('cpf-cnpj-validator')
+import validator from 'cpf-cnpj-validator';
 // or
 // const { validator } = require('cpf-cnpj-validator')
 //

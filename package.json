@@ -1,6 +1,6 @@
 {
   "name": "cpf-cnpj-validator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Valida e formata strings de CPF ou CNPJ.",
   "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
   "license": "MIT",

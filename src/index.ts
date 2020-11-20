@@ -1,7 +1,9 @@
 import cpf from './cpf'
 import cnpj from './cnpj'
-
 export { cpf, cnpj }
+
+import { AngularValidator } from './angular-validator'
+export { AngularValidator };
 
 export const validator = joi => ({
   type: 'document',

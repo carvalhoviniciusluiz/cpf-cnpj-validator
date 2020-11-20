@@ -84,3 +84,5 @@ export default {
   isValid,
   generate,
 }
+
+export const isValidCpf = isValid;

@@ -85,3 +85,5 @@ export default {
   isValid,
   generate
 }
+
+export const isValidCnpj = isValid;

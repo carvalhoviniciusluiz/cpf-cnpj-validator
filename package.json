@@ -41,7 +41,11 @@
   },
   "homepage": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator#readme",
   "dependencies": {
-    "@hapi/joi": "^17.1.0"
+    "@angular/common": "^11.0.2",
+    "@angular/core": "^11.0.2",
+    "@angular/forms": "^11.0.2",
+    "@hapi/joi": "^17.1.0",
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
     "@types/hapi__joi": "^16.0.11",

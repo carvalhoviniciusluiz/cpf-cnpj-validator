@@ -5,11 +5,11 @@ import { isValidCnpj } from './cnpj';
 type ValidatorReturnType = { [key: string]: any } | null;
 
 export class AngularValidator {
-    static cpf(control: AbstractControl): any | null {
+    static cpf(control: AbstractControl): ValidatorReturnType {
         return AngularValidator.cpfValidator()(control);
     }
 
-    static cnpj(control: AbstractControl): any | null {
+    static cnpj(control: AbstractControl): ValidatorReturnType {
         return AngularValidator.cnpjValidator()(control);
     }
 

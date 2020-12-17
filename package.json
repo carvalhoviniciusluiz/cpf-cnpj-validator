@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator#readme",  
   "devDependencies": {
-    "@hapi/joi": "^17.1.0"
+    "@hapi/joi": "^17.1.0",
     "@types/hapi__joi": "^16.0.11",
     "@types/jest": "^23.3.14",
     "bili": "^3.4.2",

@@ -1,6 +1,6 @@
 import 'jest'
 
-import _joi  from '@hapi/joi'
+import  _joi  from 'joi'
 import validator, { cpf, cnpj } from '../src'
 
 const Joi = _joi.extend(validator)

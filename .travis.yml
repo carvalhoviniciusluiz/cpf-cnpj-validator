@@ -5,4 +5,5 @@ node_js:
   - 11
   - 10
 install:
+  - npm install
   - npm install joi

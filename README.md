@@ -14,8 +14,6 @@ Valida e formata strings de CPF ou CNPJ.
 ### Requer:
 Node ``^8.0.0``.
 
-@hapi/joi ``^17.1.0``.
-
 ### Instalação:
 ```
 npm i cpf-cnpj-validator -S
@@ -24,7 +22,7 @@ npm i cpf-cnpj-validator -S
 ### Uso:
 :warning: __NOTE__: Os exemplos estão na versão es6, mas você pode está usando a sintaxe antiga como preferir.
 ```js
-import { cpf } from 'cpf-cnpj-validator'; 
+import { cpf } from 'cpf-cnpj-validator';
 // or const { cpf } = require('cpf-cnpj-validator');
 
 // gera um número de cpf
@@ -63,8 +61,14 @@ Veja mais exemplos práticos consultando os testes para [CPF](./test/cpf.test.ts
 
 ### Joi
 
-[@hapi/joi](https://www.npmjs.com/package/@hapi/joi) é uma excelente biblioteca para validação de objetos javascript que permite a construção de mecanismos personalizados para tal.
+[joi](https://www.npmjs.com/package/joi) é uma excelente biblioteca para validação de objetos javascript que permite a construção de mecanismos personalizados.
 A biblioteca [cpf-cnpj-validator](https://www.npmjs.com/package/cpf-cnpj-validator) disponibiliza um mecanismo personalizado para Joi capaz de validar se uma string pode ser, ou não, um número válido de CPF ou CNPJ:
+
+Para utilizar essa integração é necessário:
+
+```
+npm install joi
+```
 
 ```js
 import validator from 'cpf-cnpj-validator';

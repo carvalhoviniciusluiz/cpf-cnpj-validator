@@ -75,7 +75,7 @@ import validator from 'cpf-cnpj-validator';
 // or
 // const { validator } = require('cpf-cnpj-validator')
 //
-const Joi = require('@hapi/joi').extend(validator)
+const Joi = require('joi').extend(validator)
 
 const cnpjSchema = Joi.document().cnpj();
 const cpfSchema = Joi.document().cpf();

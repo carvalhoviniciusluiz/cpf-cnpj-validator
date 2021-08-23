@@ -51,7 +51,7 @@
     "typescript": "^3.5.3"
   },
   "peerDependencies": {
-    "joi": "^17.1.0"
+    "joi": "^17.4.2"
   },
   "keywords": [
     "node",
@@ -59,8 +59,5 @@
     "cpf",
     "cnpj",
     "validator"
-  ],
-  "dependencies": {
-    "joi": "^17.4.2"
-  }
+  ]
 }

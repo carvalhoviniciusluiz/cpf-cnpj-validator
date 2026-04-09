@@ -13,7 +13,7 @@ const BLACKLIST: Array<string> = [
 ]
 
 const STRICT_STRIP_REGEX: RegExp = /[-\\/.]/g
-const LOOSE_STRIP_REGEX: RegExp = /[^(\d)A-Z]/g
+const LOOSE_STRIP_REGEX: RegExp = /[^\dA-Z]/g
 
 const verifierDigit = (digits: string): number => {
   let index: number = 2

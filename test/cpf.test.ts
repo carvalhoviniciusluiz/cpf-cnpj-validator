@@ -64,4 +64,30 @@ describe('CPF', () => {
     expect(number).toMatch(/^\d{3}\d{3}\d{3}\d{2}$/)
     expect(cpf.isValid(number)).toBeTruthy()
   })
+
+  test ('rejeita CPF com dígito verificador inválido', () => {
+    expect(cpf.isValid('29537995592')).toBeFalsy()
+    expect(cpf.isValid('29537995594')).toBeFalsy()
+  })
+
+  test ('rejeita CPF com tamanho incorreto', () => {
+    expect(cpf.isValid('1')).toBeFalsy()
+    expect(cpf.isValid('2953799559')).toBeFalsy()
+    expect(cpf.isValid('295379955930')).toBeFalsy()
+  })
+
+  test ('calcula verifierDigit corretamente', () => {
+    expect(cpf.verifierDigit('295379955')).toBe(9)
+    expect(cpf.verifierDigit('2953799559')).toBe(3)
+  })
+
+  test ('strip em modo strict remove apenas pontos e hífens', () => {
+    expect(cpf.strip('295.379.955-93', true)).toEqual('29537995593')
+    expect(cpf.strip('295$379\n955...93', true)).toEqual('295$379\n95593')
+  })
+
+  test ('format retorna entrada intacta quando não casa a máscara', () => {
+    expect(cpf.format('123')).toEqual('123')
+    expect(cpf.format('abc')).toEqual('')
+  })
 })

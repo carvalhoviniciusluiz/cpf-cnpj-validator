@@ -23,6 +23,7 @@ describe('Test CPF', () => {
   })
 
   test ('deve falhar no CPF inválido', async () => {
+    expect.assertions(1)
     const cpf = '01283191283'
     try {
       await cpfSchema.validateAsync(cpf)
@@ -54,6 +55,7 @@ describe('Test CNPJ', () => {
   })
 
   test ('deve falhar no CNPJ inválido', async () => {
+    expect.assertions(1)
     const cnpj = '0128319128312'
     try {
       await cnpjSchema.validateAsync(cnpj)
@@ -65,5 +67,10 @@ describe('Test CNPJ', () => {
         context: { label: 'value', value: '0128319128312' }
       }])
     }
+  })
+
+  test ('deve aceitar CNPJ alfanumérico oficial da RFB', async () => {
+    const value = await cnpjSchema.validateAsync('12ABC34501DE35')
+    expect(value).toEqual('12ABC34501DE35')
   })
 })

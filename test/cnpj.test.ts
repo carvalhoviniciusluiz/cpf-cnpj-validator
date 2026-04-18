@@ -88,4 +88,29 @@ describe('CNPJ', () => {
     // RFB emite identificadores apenas com letras maiúsculas (A-Z)
     expect(cnpj.isValid('12abc34501de35')).toBeFalsy()
   })
+
+  test ('rejeita CNPJ com dígito verificador inválido', () => {
+    expect(cnpj.isValid('54550752000154')).toBeFalsy()
+    expect(cnpj.isValid('54550752000156')).toBeFalsy()
+  })
+
+  test ('rejeita CNPJ com tamanho incorreto', () => {
+    expect(cnpj.isValid('1')).toBeFalsy()
+    expect(cnpj.isValid('5455075200015')).toBeFalsy()
+    expect(cnpj.isValid('545507520001555')).toBeFalsy()
+  })
+
+  test ('calcula verifierDigit corretamente para CNPJ numérico', () => {
+    expect(cnpj.verifierDigit('545507520001')).toBe(5)
+    expect(cnpj.verifierDigit('5455075200015')).toBe(5)
+  })
+
+  test ('strip em modo strict remove apenas pontos, barras e hífens', () => {
+    expect(cnpj.strip('54.550.752/0001-55', true)).toEqual('54550752000155')
+    expect(cnpj.strip('54550[752#0001..$55', true)).toEqual('54550[752#0001$55')
+  })
+
+  test ('formata CNPJ alfanumérico com a máscara oficial', () => {
+    expect(cnpj.format('12ABC34501DE35')).toEqual('12.ABC.345/01DE-35')
+  })
 })

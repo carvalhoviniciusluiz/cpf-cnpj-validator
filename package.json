@@ -1,37 +1,90 @@
 {
   "name": "cpf-cnpj-validator",
   "version": "1.1.0",
-  "description": "Valida e formata strings de CPF ou CNPJ.",
+  "description": "Valida, formata e gera strings de CPF ou CNPJ, com suporte ao novo formato alfanumérico da RFB e adapters para joi, yup e zod.",
   "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
   "license": "MIT",
-  "main": "dist/cpf-cnpj-validator.cjs.js",
-  "types": "types/index.d.ts",
-  "module": "dist/cpf-cnpj-validator.es.js",
-  "scripts": {
-    "build": "bili src/index.ts",
-    "test": "ts-node jest.startup.ts --detectOpenHandles --forceExit --no-cache",
-    "pretest": "npm run build",
-    "prepublishOnly": "npm run test"
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./joi": {
+      "types": "./dist/joi.d.ts",
+      "import": "./dist/joi.js",
+      "require": "./dist/joi.cjs"
+    },
+    "./yup": {
+      "types": "./dist/yup.d.ts",
+      "import": "./dist/yup.js",
+      "require": "./dist/yup.cjs"
+    },
+    "./zod": {
+      "types": "./dist/zod.d.ts",
+      "import": "./dist/zod.js",
+      "require": "./dist/zod.cjs"
+    }
   },
   "files": [
-    "dist/",
-    "types/"
+    "dist"
   ],
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+  "engines": {
+    "node": ">=18"
   },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check",
+    "lint:fix": "biome check --write",
+    "format": "biome format --write",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm run test && npm run build"
+  },
+  "peerDependencies": {
+    "joi": "^17.0.0",
+    "yup": "^1.0.0",
+    "zod": "^3.22.0 || ^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "joi": {
+      "optional": true
+    },
+    "yup": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.0",
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^4.1.4",
+    "joi": "^17.13.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.4",
+    "yup": "^1.7.1",
+    "zod": "^4.3.6"
+  },
+  "keywords": [
+    "node",
+    "joi",
+    "yup",
+    "zod",
+    "cpf",
+    "cnpj",
+    "validator",
+    "alfanumerico",
+    "receita-federal"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator.git"
@@ -39,25 +92,5 @@
   "bugs": {
     "url": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/issues"
   },
-  "homepage": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator#readme",
-  "devDependencies": {
-    "@types/jest": "^23.3.14",
-    "bili": "^3.4.2",
-    "jest": "^23.6.0",
-    "jest-cli": "^23.6.0",
-    "rollup-plugin-typescript2": "^0.29.0",
-    "ts-jest": "^23.10.5",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.5.3"
-  },
-  "peerDependencies": {
-    "joi": "^17.4.2"
-  },
-  "keywords": [
-    "node",
-    "joi",
-    "cpf",
-    "cnpj",
-    "validator"
-  ]
+  "homepage": "https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator#readme"
 }

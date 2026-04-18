@@ -1,5 +1,6 @@
-// Blacklist common values.
-const BLACKLIST: Array<string> = [
+import { cnpjDigit as verifierDigit } from './core/modulo11'
+
+const BLACKLIST = new Set<string>([
   '00000000000000',
   '11111111111111',
   '22222222222222',
@@ -10,79 +11,58 @@ const BLACKLIST: Array<string> = [
   '77777777777777',
   '88888888888888',
   '99999999999999'
-]
+])
 
-const STRICT_STRIP_REGEX: RegExp = /[-\\/.]/g
-const LOOSE_STRIP_REGEX: RegExp = /[^\dA-Z]/g
+const STRICT_STRIP_REGEX = /[./-]/g
+const LOOSE_STRIP_REGEX = /[^\dA-Z]/g
+const VALID_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-const verifierDigit = (digits: string): number => {
-  let index: number = 2
-  const reverse: Array<number> = digits.split('').reduce((buffer, number) => {
-    return [number.charCodeAt(0) - 48].concat(buffer)
-  }, [])
-
-  const sum: number = reverse.reduce((buffer, number) => {
-    buffer += number * index
-    index = (index === 9 ? 2 : index + 1)
-    return buffer
-  }, 0)
-
-  const mod: number = sum % 11
-  return (mod < 2 ? 0 : 11 - mod)
+export interface GenerateOptions {
+  formatted?: boolean
 }
 
-const strip = (number: string, strict?: boolean): string => {
-  const regex: RegExp = strict ? STRICT_STRIP_REGEX : LOOSE_STRIP_REGEX
-  return (number || '').replace(regex, '')
+function strip(value: string, strict?: boolean): string {
+  if (typeof value !== 'string') return ''
+  const normalized = strict ? value : value.toUpperCase()
+  const regex = strict ? STRICT_STRIP_REGEX : LOOSE_STRIP_REGEX
+  return normalized.replace(regex, '')
 }
 
-const format = (number: string): string => {
-  return strip(number).replace(/^([\dA-Z]{2})([\dA-Z]{3})([\dA-Z]{3})([\dA-Z]{4})(\d{2})$/, '$1.$2.$3/$4-$5')
+function format(value: string): string {
+  return strip(value).replace(
+    /^([\dA-Z]{2})([\dA-Z]{3})([\dA-Z]{3})([\dA-Z]{4})(\d{2})$/,
+    '$1.$2.$3/$4-$5'
+  )
 }
 
-const isValid = (number: string, strict?: boolean): boolean => {
-  const stripped: string = strip(number, strict)
-
-  // CNPJ must be defined
-  if (!stripped) {
+function isValid(value: string, strict?: boolean): boolean {
+  const stripped = strip(value, strict)
+  if (!stripped || stripped.length !== 14 || BLACKLIST.has(stripped)) {
+    return false
+  }
+  // DVs (últimas 2 posições) devem ser numéricos pela regra da RFB.
+  if (!/^\d{2}$/.test(stripped.slice(-2))) {
     return false
   }
 
-  // CNPJ must have 14 chars
-  if (stripped.length !== 14) {
-    return false
-  }
-
-  // CNPJ can't be blacklisted
-  if (BLACKLIST.includes(stripped)) {
-    return false
-  }
-
-  let numbers: string = stripped.substr(0, 12)
+  let numbers = stripped.slice(0, 12)
   numbers += verifierDigit(numbers)
   numbers += verifierDigit(numbers)
-
-  return numbers.substr(-2) === stripped.substr(-2)
+  return numbers.slice(-2) === stripped.slice(-2)
 }
 
-const generate = (formatted?: boolean): string => {
-  let numbers: string = ''
+function generate(options?: boolean | GenerateOptions): string {
+  const opts: GenerateOptions =
+    typeof options === 'boolean' ? { formatted: options } : (options ?? {})
 
-  const validChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  for (let i = 0; i < 12; i += 1) {
-    numbers += validChars[Math.floor(Math.random() * validChars.length)]
+  let numbers = ''
+  for (let i = 0; i < 12; i++) {
+    numbers += VALID_CHARS[Math.floor(Math.random() * VALID_CHARS.length)]
   }
-
   numbers += verifierDigit(numbers)
   numbers += verifierDigit(numbers)
-
-  return (formatted ? format(numbers) : numbers)
+  return opts.formatted ? format(numbers) : numbers
 }
 
-export default {
-  verifierDigit,
-  strip,
-  format,
-  isValid,
-  generate
-}
+export { format, generate, isValid, strip, verifierDigit }
+export default { verifierDigit, strip, format, isValid, generate }

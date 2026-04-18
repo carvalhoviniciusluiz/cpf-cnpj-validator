@@ -1,9 +1,0 @@
-sudo: false
-language: node_js
-node_js:
-  - 12
-  - 11
-  - 10
-install:
-  - npm install
-  - npm install joi

@@ -12,3 +12,6 @@ yarn.lock
 # Generated sources and type definitions
 dist/
 src/*.js
+
+# Test coverage reports
+coverage/

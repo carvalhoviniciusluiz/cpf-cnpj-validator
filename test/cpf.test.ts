@@ -1,9 +1,9 @@
-import 'jest'
-
+import { describe, expect, test } from 'vitest'
 import { cpf } from '../src'
+import { FISCAL_REGION_BY_UF, type UF } from '../src/cpf'
 
 describe('CPF', () => {
-  test ('números de listas negras', () => {
+  test('números de listas negras', () => {
     expect(cpf.isValid('00000000000')).toBeFalsy()
     expect(cpf.isValid('11111111111')).toBeFalsy()
     expect(cpf.isValid('22222222222')).toBeFalsy()
@@ -17,76 +17,108 @@ describe('CPF', () => {
     expect(cpf.isValid('12345678909')).toBeFalsy()
   })
 
-  test ('rejeita valores falsos', () => {
+  test('rejeita valores falsos', () => {
     expect(cpf.isValid('')).toBeFalsy()
-    expect(cpf.isValid(null)).toBeFalsy()
-    expect(cpf.isValid(undefined)).toBeFalsy()
+    expect(cpf.isValid(null as unknown as string)).toBeFalsy()
+    expect(cpf.isValid(undefined as unknown as string)).toBeFalsy()
   })
 
-  test ('valida strings formatadas', () => {
+  test('valida strings formatadas', () => {
     expect(cpf.isValid('295.379.955-93')).toBeTruthy()
   })
 
-  test ('valida strings não formatadas', () => {
+  test('valida strings não formatadas', () => {
     expect(cpf.isValid('29537995593')).toBeTruthy()
   })
 
-  test ('valida strings de caracteres confusas', () => {
+  test('valida strings de caracteres confusas', () => {
     expect(cpf.isValid('295$379\n955...93')).toBeTruthy()
   })
 
-  test ('valida cadeias de caracteres', () => {
+  test('valida cadeias de caracteres em modo strict', () => {
     expect(cpf.isValid('295$379\n955...93', true)).toBeFalsy()
     expect(cpf.isValid('295.379.955-93', true)).toBeTruthy()
     expect(cpf.isValid('29537995593', true)).toBeTruthy()
   })
 
-  test ('retorna o número não formatado', () => {
-    const number = cpf.strip('295.379.955-93')
-    expect(number).toEqual('29537995593')
+  test('retorna o número não formatado', () => {
+    expect(cpf.strip('295.379.955-93')).toEqual('29537995593')
   })
 
-  test ('retorna o número formatador', () => {
-    const number = cpf.format('29537995593')
-    expect(number).toEqual('295.379.955-93')
+  test('retorna o número formatado', () => {
+    expect(cpf.format('29537995593')).toEqual('295.379.955-93')
   })
 
-  test ('gera número formatado', () => {
+  test('gera número formatado', () => {
     const number = cpf.generate(true)
-
     expect(number).toMatch(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/)
     expect(cpf.isValid(number)).toBeTruthy()
   })
 
-  test ('gera número não formatado', () => {
+  test('gera número não formatado', () => {
     const number = cpf.generate()
-
-    expect(number).toMatch(/^\d{3}\d{3}\d{3}\d{2}$/)
+    expect(number).toMatch(/^\d{11}$/)
     expect(cpf.isValid(number)).toBeTruthy()
   })
 
-  test ('rejeita CPF com dígito verificador inválido', () => {
+  test('gera número com formato via objeto de opções', () => {
+    const number = cpf.generate({ formatted: true })
+    expect(number).toMatch(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/)
+    expect(cpf.isValid(number)).toBeTruthy()
+  })
+
+  test('gera CPF com dígito de Região Fiscal correspondente ao estado', () => {
+    const cases: Array<[UF, string]> = [
+      ['SP', '8'],
+      ['RJ', '7'],
+      ['MG', '6'],
+      ['RS', '0'],
+      ['DF', '1'],
+      ['AM', '2']
+    ]
+    for (const [state, expected] of cases) {
+      const number = cpf.generate({ state })
+      expect(number[8]).toEqual(expected)
+      expect(cpf.isValid(number)).toBeTruthy()
+    }
+  })
+
+  test('gera CPF formatado para um estado específico', () => {
+    const number = cpf.generate({ formatted: true, state: 'SP' })
+    expect(number).toMatch(/^\d{3}\.\d{3}\.\d{2}8-\d{2}$/)
+    expect(cpf.isValid(number)).toBeTruthy()
+  })
+
+  test('FISCAL_REGION_BY_UF cobre todos os 26 estados + DF', () => {
+    expect(Object.keys(FISCAL_REGION_BY_UF)).toHaveLength(27)
+    for (const digit of Object.values(FISCAL_REGION_BY_UF)) {
+      expect(digit).toBeGreaterThanOrEqual(0)
+      expect(digit).toBeLessThanOrEqual(9)
+    }
+  })
+
+  test('rejeita CPF com dígito verificador inválido', () => {
     expect(cpf.isValid('29537995592')).toBeFalsy()
     expect(cpf.isValid('29537995594')).toBeFalsy()
   })
 
-  test ('rejeita CPF com tamanho incorreto', () => {
+  test('rejeita CPF com tamanho incorreto', () => {
     expect(cpf.isValid('1')).toBeFalsy()
     expect(cpf.isValid('2953799559')).toBeFalsy()
     expect(cpf.isValid('295379955930')).toBeFalsy()
   })
 
-  test ('calcula verifierDigit corretamente', () => {
+  test('calcula verifierDigit corretamente', () => {
     expect(cpf.verifierDigit('295379955')).toBe(9)
     expect(cpf.verifierDigit('2953799559')).toBe(3)
   })
 
-  test ('strip em modo strict remove apenas pontos e hífens', () => {
+  test('strip em modo strict remove apenas pontos e hífens', () => {
     expect(cpf.strip('295.379.955-93', true)).toEqual('29537995593')
     expect(cpf.strip('295$379\n955...93', true)).toEqual('295$379\n95593')
   })
 
-  test ('format retorna entrada intacta quando não casa a máscara', () => {
+  test('format retorna entrada intacta quando não casa a máscara', () => {
     expect(cpf.format('123')).toEqual('123')
     expect(cpf.format('abc')).toEqual('')
   })

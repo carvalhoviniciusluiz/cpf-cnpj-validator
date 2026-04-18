@@ -59,6 +59,16 @@
         "types": "./dist/class-validator.d.cts",
         "default": "./dist/class-validator.cjs"
       }
+    },
+    "./angular": {
+      "import": {
+        "types": "./dist/angular.d.ts",
+        "default": "./dist/angular.js"
+      },
+      "require": {
+        "types": "./dist/angular.d.cts",
+        "default": "./dist/angular.cjs"
+      }
     }
   },
   "files": [
@@ -86,6 +96,7 @@
     "prepublishOnly": "npm run lint && npm run typecheck && npm run test && npm run build && npm run publint && npm run attw"
   },
   "peerDependencies": {
+    "@angular/forms": ">=15",
     "class-validator": "^0.14.0 || ^0.15.0",
     "joi": "^17.0.0",
     "reflect-metadata": "^0.2.0",
@@ -93,6 +104,9 @@
     "zod": "^3.22.0 || ^4.0.0"
   },
   "peerDependenciesMeta": {
+    "@angular/forms": {
+      "optional": true
+    },
     "class-validator": {
       "optional": true
     },
@@ -110,6 +124,9 @@
     }
   },
   "devDependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
     "@arethetypeswrong/cli": "^0.18.2",
     "@biomejs/biome": "^2.0.0",
     "@changesets/changelog-github": "^0.6.0",
@@ -121,6 +138,7 @@
     "joi": "^17.13.3",
     "publint": "^0.3.18",
     "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vitest": "^4.1.4",
@@ -138,7 +156,9 @@
     "alfanumerico",
     "receita-federal",
     "class-validator",
-    "nestjs"
+    "nestjs",
+    "angular",
+    "angular-forms"
   ],
   "repository": {
     "type": "git",

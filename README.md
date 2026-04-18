@@ -14,7 +14,7 @@
 
 - **CNPJ alfanumérico** da RFB (`12.ABC.345/01DE-35`) validado nativamente
 - **Geração regional de CPF** por UF: `cpf.generate({ state: 'SP' })`
-- **4 adapters** plug-and-play: `joi`, `yup`, `zod` e `class-validator`
+- **5 adapters** plug-and-play: `joi`, `yup`, `zod`, `class-validator` e `angular`
 - Modo loose **case-insensitive** (aceita minúsculas)
 - **0 vulnerabilidades** (antes: 116 em dev deps)
 - Stack moderna: TypeScript 5.9, vitest, tsup, Node 18+
@@ -42,6 +42,7 @@ npm install joi
 npm install yup
 npm install zod
 npm install class-validator reflect-metadata   # NestJS
+npm install @angular/forms                     # Angular Reactive Forms
 ```
 
 ---
@@ -204,6 +205,21 @@ export class UserDTO {
 
 Requer `experimentalDecorators: true` e `emitDecoratorMetadata: true` no `tsconfig.json` (padrão no NestJS).
 
+### Angular Reactive Forms
+
+```ts
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { cpfValidator, cnpjValidator } from 'cpf-cnpj-validator/angular'
+
+// Estilo moderno (factory)
+const form = new FormGroup({
+  cpf: new FormControl('', [Validators.required, cpfValidator()]),
+  cnpj: new FormControl('', [cnpjValidator()])
+})
+```
+
+Também expõe a API estática `AngularValidator.cpf` / `AngularValidator.cnpj` pra uso direto no array de Validators (compatibilidade com o estilo proposto em [#21](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/21) por [@rodzappa](https://github.com/rodzappa) em 2020).
+
 ---
 
 ## API
@@ -283,7 +299,7 @@ Se você usava o `validator` do joi, troque o import:
 
 ```bash
 npm install
-npm run test              # roda vitest (89 testes)
+npm run test              # roda vitest (98 testes)
 npm run test:coverage     # roda com cobertura (100%)
 npm run bench             # roda benchmarks
 npm run typecheck         # verifica tipos

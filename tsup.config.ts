@@ -6,7 +6,8 @@ export default defineConfig({
     joi: 'src/adapters/joi.ts',
     yup: 'src/adapters/yup.ts',
     zod: 'src/adapters/zod.ts',
-    'class-validator': 'src/adapters/class-validator.ts'
+    'class-validator': 'src/adapters/class-validator.ts',
+    angular: 'src/adapters/angular.ts'
   },
   format: ['esm', 'cjs'],
   dts: true,

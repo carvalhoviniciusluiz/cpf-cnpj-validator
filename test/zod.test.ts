@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import { z } from 'zod'
 import { cnpj, cpf } from '../src'
-import { zodValidator } from '../src/zod'
+import { zodValidator } from '../src/adapters/zod'
 
 const { cpf: zCpf, cnpj: zCnpj } = zodValidator(z)
 

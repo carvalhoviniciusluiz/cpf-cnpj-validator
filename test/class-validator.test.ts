@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import { validate } from 'class-validator'
 import { describe, expect, test } from 'vitest'
 import { cnpj, cpf } from '../src'
-import { IsCNPJ, IsCPF } from '../src/class-validator'
+import { IsCNPJ, IsCPF } from '../src/adapters/class-validator'
 
 class CpfDTO {
   @IsCPF()

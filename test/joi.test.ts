@@ -1,7 +1,7 @@
 import _joi from 'joi'
 import { describe, expect, test } from 'vitest'
 import { cnpj, cpf } from '../src'
-import { joiValidator } from '../src/joi'
+import { joiValidator } from '../src/adapters/joi'
 
 const Joi = _joi.extend(joiValidator)
 

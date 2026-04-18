@@ -1,6 +1,6 @@
 import type * as yup from 'yup'
-import cnpj from './cnpj'
-import cpf from './cpf'
+import cnpj from '../cnpj'
+import cpf from '../cpf'
 
 declare module 'yup' {
   interface StringSchema {

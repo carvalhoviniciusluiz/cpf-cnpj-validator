@@ -1,6 +1,6 @@
 import { registerDecorator, type ValidationOptions } from 'class-validator'
-import cnpj from './cnpj'
-import cpf from './cpf'
+import cnpj from '../cnpj'
+import cpf from '../cpf'
 
 /**
  * Decorator de propriedade que valida um CPF via class-validator.

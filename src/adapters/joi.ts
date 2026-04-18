@@ -1,6 +1,6 @@
 import type { Extension, Root } from 'joi'
-import cnpj from './cnpj'
-import cpf from './cpf'
+import cnpj from '../cnpj'
+import cpf from '../cpf'
 
 /**
  * Cria uma extensão joi que adiciona o tipo `document` com os métodos

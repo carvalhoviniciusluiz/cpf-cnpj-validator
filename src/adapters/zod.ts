@@ -1,6 +1,6 @@
 import type { z as ZodNamespace } from 'zod'
-import cnpj from './cnpj'
-import cpf from './cpf'
+import cnpj from '../cnpj'
+import cpf from '../cpf'
 
 /**
  * Cria factories zod para CPF e CNPJ. Como zod não usa mutation pattern

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import * as yup from 'yup'
 import { cnpj, cpf } from '../src'
-import { yupValidator } from '../src/yup'
+import { yupValidator } from '../src/adapters/yup'
 
 yupValidator(yup)
 

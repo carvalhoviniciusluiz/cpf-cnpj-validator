@@ -25,6 +25,11 @@ jobs:
           cache: npm
           registry-url: https://registry.npmjs.org
 
+      # OIDC Trusted Publishing requer npm 11.5.1+ — o npm embutido no Node 22
+      # (10.9.x) retorna E404 ao fazer o PUT autenticado.
+      - name: Upgrade npm to >=11 for OIDC Trusted Publishing
+        run: npm install -g npm@latest
+
       - run: npm ci
 
       - run: npm run lint

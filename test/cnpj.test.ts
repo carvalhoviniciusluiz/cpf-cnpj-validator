@@ -53,14 +53,14 @@ describe('CNPJ', () => {
   test ('gera número formatado', () => {
     var number = cnpj.generate(true)
 
-    expect(number).toMatch(/^(\d{2}).(\d{3}).(\d{3})\/(\d{4})-(\d{2})$/)
+    expect(number).toMatch(/^([\dA-Z]{2}).([\dA-Z]{3}).([\dA-Z]{3})\/([\dA-Z]{4})-(\d{2})$/)
     expect(cnpj.isValid(number)).toBeTruthy()
   })
 
   test ('gera número não formatado', () => {
     var number = cnpj.generate()
 
-    expect(number).toMatch(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/)
+    expect(number).toMatch(/^([\dA-Z]{2})([\dA-Z]{3})([\dA-Z]{3})([\dA-Z]{4})(\d{2})$/)
     expect(cnpj.isValid(number)).toBeTruthy()
   })
 })

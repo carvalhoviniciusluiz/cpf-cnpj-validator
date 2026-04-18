@@ -13,12 +13,12 @@ const BLACKLIST: Array<string> = [
 ]
 
 const STRICT_STRIP_REGEX: RegExp = /[-\\/.]/g
-const LOOSE_STRIP_REGEX: RegExp = /[^\d]/g
+const LOOSE_STRIP_REGEX: RegExp = /[^\dA-Z]/g
 
 const verifierDigit = (digits: string): number => {
   let index: number = 2
   const reverse: Array<number> = digits.split('').reduce((buffer, number) => {
-    return [parseInt(number, 10)].concat(buffer)
+    return [number.charCodeAt(0) - 48].concat(buffer)
   }, [])
 
   const sum: number = reverse.reduce((buffer, number) => {
@@ -37,7 +37,7 @@ const strip = (number: string, strict?: boolean): string => {
 }
 
 const format = (number: string): string => {
-  return strip(number).replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5')
+  return strip(number).replace(/^([\dA-Z]{2})([\dA-Z]{3})([\dA-Z]{3})([\dA-Z]{4})(\d{2})$/, '$1.$2.$3/$4-$5')
 }
 
 const isValid = (number: string, strict?: boolean): boolean => {
@@ -68,8 +68,9 @@ const isValid = (number: string, strict?: boolean): boolean => {
 const generate = (formatted?: boolean): string => {
   let numbers: string = ''
 
+  const validChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   for (let i = 0; i < 12; i += 1) {
-    numbers += Math.floor(Math.random() * 9)
+    numbers += validChars[Math.floor(Math.random() * validChars.length)]
   }
 
   numbers += verifierDigit(numbers)

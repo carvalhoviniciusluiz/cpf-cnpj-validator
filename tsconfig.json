@@ -16,7 +16,9 @@
     "skipLibCheck": true,
     "declaration": false,
     "noEmit": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*", "test/**/*", "*.config.ts"]
 }

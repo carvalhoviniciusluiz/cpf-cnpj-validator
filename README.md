@@ -318,6 +318,23 @@ npm run check:package     # build + publint + attw
 
 ---
 
+## Contribuidores
+
+A biblioteca é mantida por [@carvalhoviniciusluiz](https://github.com/carvalhoviniciusluiz) desde 2018, mas cresceu com contribuições da comunidade ao longo dos anos. Um obrigado especial a:
+
+- [@patrickJramos](https://github.com/patrickJramos) e [@patrick-marvee](https://github.com/patrick-marvee) — implementação do suporte ao novo formato alfanumérico de CNPJ da RFB ([#45](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/45)), que virou o core da v2.0.
+- [@rodzappa](https://github.com/rodzappa) — proposta original do adapter Angular ([#21](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/21), 2020), incorporada na v2.1 quando a arquitetura permitiu peer deps opcionais.
+- [@leandrogehlen](https://github.com/leandrogehlen) — migração de `@hapi/joi` para `joi` oficial e primeira movida de joi para peer dependency ([#23](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/23), [#26](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/26)).
+- [@tcelestino](https://github.com/tcelestino) — revisão técnica do algoritmo alfanumérico da RFB e intermediação para destravar a PR #45.
+- [@MauricioSilv](https://github.com/MauricioSilv) — exemplos de uso em ES6 no README ([#18](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/18)).
+- [@valeriocs](https://github.com/valeriocs) — padronização de métodos de array ([#7](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/7)).
+- [@manelferreira](https://github.com/manelferreira) — correção inicial da dependência joi ([#3](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/3)).
+- [@andremw](https://github.com/andremw) — fixes de typos no README ([#15](https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/15)).
+
+E a todos que abriram issues reportando bugs ou pedindo features — cada contribuição ajuda a lib a servir melhor a comunidade brasileira de desenvolvedores.
+
+---
+
 ## Apoie o projeto
 
 Se essa lib te economizou tempo em validação de CPF/CNPJ, considere apoiar o desenvolvimento:

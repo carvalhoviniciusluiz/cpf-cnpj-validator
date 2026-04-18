@@ -1,6 +1,6 @@
 {
   "name": "cpf-cnpj-validator",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Valida, formata e gera strings de CPF ou CNPJ, com suporte ao novo formato alfanumérico da RFB e adapters para joi, yup e zod.",
   "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
   "license": "MIT",

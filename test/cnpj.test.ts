@@ -63,4 +63,29 @@ describe('CNPJ', () => {
     expect(number).toMatch(/^([\dA-Z]{2})([\dA-Z]{3})([\dA-Z]{3})([\dA-Z]{4})(\d{2})$/)
     expect(cnpj.isValid(number)).toBeTruthy()
   })
+
+  test ('valida CNPJ alfanumérico oficial da Receita Federal', () => {
+    // Vetor oficial — Nota Técnica RFB, pergunta 14: CNPJ 12.ABC.345/01DE-35 (DV1=3, DV2=5)
+    expect(cnpj.isValid('12ABC34501DE35')).toBeTruthy()
+    expect(cnpj.isValid('12.ABC.345/01DE-35')).toBeTruthy()
+    expect(cnpj.verifierDigit('12ABC34501DE')).toBe(3)
+    expect(cnpj.verifierDigit('12ABC34501DE3')).toBe(5)
+  })
+
+  test ('valida exemplos alfanuméricos de raiz/filial da RFB', () => {
+    // PDF oficial — pergunta 23 (combinações raiz numérica/alfanumérica x filial)
+    expect(cnpj.isValid('AA345678000114')).toBeTruthy()
+    expect(cnpj.isValid('AA345678000A29')).toBeTruthy()
+    expect(cnpj.isValid('12345678000A08')).toBeTruthy()
+  })
+
+  test ('rejeita CNPJ alfanumérico com dígito verificador alfabético', () => {
+    // DVs (últimas 2 posições) permanecem sempre numéricos pela regra da RFB
+    expect(cnpj.isValid('12ABC34501DE3A')).toBeFalsy()
+  })
+
+  test ('rejeita CNPJ alfanumérico em letras minúsculas', () => {
+    // RFB emite identificadores apenas com letras maiúsculas (A-Z)
+    expect(cnpj.isValid('12abc34501de35')).toBeFalsy()
+  })
 })

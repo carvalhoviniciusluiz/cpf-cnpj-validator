@@ -5,34 +5,60 @@
   "author": "Carvalho, Vinicius Luiz <carvalho.viniciusluiz@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./joi": {
-      "types": "./dist/joi.d.ts",
-      "import": "./dist/joi.js",
-      "require": "./dist/joi.cjs"
+      "import": {
+        "types": "./dist/joi.d.ts",
+        "default": "./dist/joi.js"
+      },
+      "require": {
+        "types": "./dist/joi.d.cts",
+        "default": "./dist/joi.cjs"
+      }
     },
     "./yup": {
-      "types": "./dist/yup.d.ts",
-      "import": "./dist/yup.js",
-      "require": "./dist/yup.cjs"
+      "import": {
+        "types": "./dist/yup.d.ts",
+        "default": "./dist/yup.js"
+      },
+      "require": {
+        "types": "./dist/yup.d.cts",
+        "default": "./dist/yup.cjs"
+      }
     },
     "./zod": {
-      "types": "./dist/zod.d.ts",
-      "import": "./dist/zod.js",
-      "require": "./dist/zod.cjs"
+      "import": {
+        "types": "./dist/zod.d.ts",
+        "default": "./dist/zod.js"
+      },
+      "require": {
+        "types": "./dist/zod.d.cts",
+        "default": "./dist/zod.cjs"
+      }
     },
     "./class-validator": {
-      "types": "./dist/class-validator.d.ts",
-      "import": "./dist/class-validator.js",
-      "require": "./dist/class-validator.cjs"
+      "import": {
+        "types": "./dist/class-validator.d.ts",
+        "default": "./dist/class-validator.js"
+      },
+      "require": {
+        "types": "./dist/class-validator.d.cts",
+        "default": "./dist/class-validator.cjs"
+      }
     }
   },
   "files": [
@@ -50,7 +76,10 @@
     "lint": "biome check",
     "lint:fix": "biome check --write",
     "format": "biome format --write",
-    "prepublishOnly": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "publint": "publint",
+    "attw": "attw --pack . --profile node16",
+    "check:package": "npm run build && npm run publint && npm run attw",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm run test && npm run build && npm run publint && npm run attw"
   },
   "peerDependencies": {
     "class-validator": "^0.14.0 || ^0.15.0",
@@ -77,11 +106,13 @@
     }
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
     "@biomejs/biome": "^2.0.0",
     "@types/node": "^22.0.0",
     "@vitest/coverage-v8": "^4.1.4",
     "class-validator": "^0.15.1",
     "joi": "^17.13.3",
+    "publint": "^0.3.18",
     "reflect-metadata": "^0.2.2",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",

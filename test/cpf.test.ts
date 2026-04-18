@@ -121,6 +121,22 @@ describe('CPF', () => {
   })
 
   /**
+   * SPECIFICATION: generate({state}) deve lançar TypeError com lista de
+   *                UFs válidas quando o state não existe no mapa.
+   * BEHAVIOR: cpf.generate({ state: 'XX' as UF }) lança TypeError cuja
+   *           mensagem inclui a UF desconhecida e os 27 valores válidos.
+   * INTENT: Proteger consumidores JS (sem checagem de tipo em build)
+   *         e consumidores TS que usam @ts-expect-error ou `as any`.
+   *         Sem esse guard, a API silenciosamente gera um CPF com
+   *         'undefined' concatenado — bug invisível em produção.
+   * @covers src/cpf.ts generate (runtime guard)
+   */
+  test('gera TypeError ao receber UF desconhecida', () => {
+    expect(() => cpf.generate({ state: 'XX' as UF })).toThrow(TypeError)
+    expect(() => cpf.generate({ state: 'XX' as UF })).toThrow(/UF 'XX' desconhecida/)
+  })
+
+  /**
    * SPECIFICATION: Brasil tem 26 estados + DF = 27 UFs. Todos devem estar
    *                no mapa público FISCAL_REGION_BY_UF, cada um apontando
    *                para um dígito 0..9 da Região Fiscal.

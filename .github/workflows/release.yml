@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    if: github.repository == 'carvalhoviniciusluiz/cpf-cnpj-validator'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write      # criar releases e tags
+      pull-requests: write # abrir PR "Version Packages"
+      id-token: write      # npm provenance (supply-chain)
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
+      - run: npm run publint
+      - run: npm run attw
+
+      - name: Create Release PR or Publish
+        uses: changesets/action@v1
+        with:
+          publish: npm run release
+          version: npm run version
+          title: "chore(release): bump package versions"
+          commit: "chore(release): bump package versions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

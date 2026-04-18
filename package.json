@@ -73,6 +73,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "bench": "vitest bench --run",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish",
     "typecheck": "tsc --noEmit",
     "lint": "biome check",
     "lint:fix": "biome check --write",
@@ -109,6 +112,8 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
     "@biomejs/biome": "^2.0.0",
+    "@changesets/changelog-github": "^0.6.0",
+    "@changesets/cli": "^2.31.0",
     "@types/node": "^22.0.0",
     "@vitest/coverage-v8": "^4.1.4",
     "class-validator": "^0.15.1",

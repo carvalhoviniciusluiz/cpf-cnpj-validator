@@ -18,6 +18,22 @@ describe('joi adapter — CPF', () => {
     await expect(schema.validateAsync(value)).resolves.toEqual(value)
   })
 
+  /**
+   * SPECIFICATION: Contrato do adapter joi — quando um valor inválido é
+   *                submetido ao schema, joi rejeita a Promise com
+   *                error.details[0] contendo type='document.cpf' e
+   *                message='CPF inválido'.
+   * BEHAVIOR: validateAsync('01283191283') rejeita com estrutura
+   *           completa do erro (type, path, context.label, context.value).
+   * INTENT: Proteger o formato exato do erro que consumidores do joi
+   *         usam para tratamento (ex: switch no err.details[0].type
+   *         para roteamento de mensagens i18n). Mudança no shape do
+   *         erro = breaking change para usuários da API.
+   * FLOW: joi.extend(joiValidator) → Joi.document().cpf() → validateAsync
+   *       → cpf.isValid(value) retorna false → helpers.error('document.cpf')
+   *       → joi monta o ValidationError.
+   * @covers src/joi.ts joiValidator, messages, rules.cpf
+   */
   test('rejeita CPF inválido com erro document.cpf', async () => {
     await expect(schema.validateAsync('01283191283')).rejects.toMatchObject({
       details: [
@@ -45,6 +61,19 @@ describe('joi adapter — CNPJ', () => {
     await expect(schema.validateAsync(value)).resolves.toEqual(value)
   })
 
+  /**
+   * SPECIFICATION: O adapter joi deve propagar o suporte alfanumérico do
+   *                cnpj.isValid para o schema Joi.document().cnpj().
+   * BEHAVIOR: validateAsync('12ABC34501DE35') resolve com o próprio
+   *           valor (vetor oficial da RFB — pergunta 14 do PDF).
+   * INTENT: Garantir que integrações joi existentes passam a aceitar
+   *         CNPJs alfanuméricos na v2 "de graça", sem alteração no
+   *         código do consumidor além do upgrade da lib.
+   * FLOW: schema.validateAsync → joiValidator.rules.cnpj.validate →
+   *       cnpj.isValid('12ABC34501DE35') → true → retorna value.
+   * @covers src/joi.ts joiValidator rules.cnpj
+   * @see https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/pull/45
+   */
   test('aceita CNPJ alfanumérico oficial da RFB', async () => {
     await expect(schema.validateAsync('12ABC34501DE35')).resolves.toEqual('12ABC34501DE35')
   })

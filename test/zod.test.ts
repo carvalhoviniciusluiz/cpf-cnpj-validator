@@ -24,6 +24,19 @@ describe('zod adapter — CPF', () => {
     }
   })
 
+  /**
+   * SPECIFICATION: Contrato do adapter zod — zCpf(message?) aceita
+   *                mensagem opcional via z.string().refine({ message }).
+   * BEHAVIOR: zCpf('CPF precisa ser válido!').safeParse(invalid) retorna
+   *           { success: false, error: { issues: [{ message: '...' }] } }.
+   * INTENT: Travar a API de personalização de mensagens no padrão zod
+   *         (issues[].message) — essencial para i18n e integração com
+   *         react-hook-form resolver do zod.
+   * FLOW: zodValidator(z).cpf(msg) → z.string().refine(predicate,
+   *       { message: msg }) → safeParse retorna ZodError com
+   *       issues[0].message = msg quando predicate falha.
+   * @covers src/zod.ts zodValidator.cpf
+   */
   test('permite mensagem customizada', () => {
     const result = zCpf('CPF precisa ser válido!').safeParse('01283191283')
     expect(result.success).toBe(false)
@@ -44,6 +57,16 @@ describe('zod adapter — CNPJ', () => {
     expect(zCnpj().parse(value)).toEqual(value)
   })
 
+  /**
+   * SPECIFICATION: O adapter zod deve propagar o suporte alfanumérico do
+   *                cnpj.isValid para zodValidator(z).cnpj().
+   * BEHAVIOR: zCnpj().parse('12ABC34501DE35') retorna o próprio valor
+   *           (vetor oficial da RFB — pergunta 14 do PDF).
+   * INTENT: Paridade com joi/yup/class-validator — schemas zod
+   *         existentes passam a aceitar CNPJs alfanuméricos na v2 sem
+   *         alteração no consumidor.
+   * @covers src/zod.ts zodValidator.cnpj
+   */
   test('aceita CNPJ alfanumérico oficial da RFB', () => {
     expect(zCnpj().parse('12ABC34501DE35')).toEqual('12ABC34501DE35')
   })

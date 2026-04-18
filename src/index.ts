@@ -26,4 +26,7 @@ import cpf from './cpf'
 
 export type { GenerateOptions as CnpjGenerateOptions } from './cnpj'
 export type { GenerateOptions as CpfGenerateOptions, UF } from './cpf'
-export { cnpj, cpf }
+// Aliases pra evitar colisão com nomes de variáveis locais (#36):
+//   import { cpf as cpfValidator } from 'cpf-cnpj-validator'  ← padrão antigo
+//   import { cpfValidator } from 'cpf-cnpj-validator'         ← novo, semanticamente claro
+export { cnpj, cnpj as cnpjValidator, cpf, cpf as cpfValidator }

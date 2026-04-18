@@ -90,4 +90,26 @@ describe('joi adapter — CNPJ', () => {
       ]
     })
   })
+
+  /**
+   * SPECIFICATION: Contrato do adapter joi — joi.document().cpf(message?)
+   *                e joi.document().cnpj(message?) aceitam mensagem
+   *                customizada inline, alinhando com o padrão dos
+   *                adapters yup, zod e class-validator.
+   * BEHAVIOR: Quando uma mensagem é passada, o erro retornado pelo joi
+   *           tem .message === mensagem informada (em vez do padrão
+   *           'CPF inválido' / 'CNPJ inválido').
+   * INTENT: Fechar a issue #32 mantendo API consistente entre os 4
+   *         adapters. Usa template {{#message}} via error code
+   *         document.{cpf,cnpj}.custom quando arg é passado.
+   * @covers src/adapters/joi.ts (rules.cpf/cnpj method + args)
+   * @see https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/issues/32
+   */
+  test('permite mensagem customizada inline no método', async () => {
+    const cpfCustom = Joi.document().cpf('CPF precisa ser válido!').required()
+    await expect(cpfCustom.validateAsync('01283191283')).rejects.toThrow('CPF precisa ser válido!')
+
+    const cnpjCustom = Joi.document().cnpj('CNPJ obrigatório').required()
+    await expect(cnpjCustom.validateAsync('0128319128312')).rejects.toThrow('CNPJ obrigatório')
+  })
 })

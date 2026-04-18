@@ -42,6 +42,8 @@ jobs:
           title: "chore(release): bump package versions"
           commit: "chore(release): bump package versions"
         env:
+          # Autenticação no npm via Trusted Publisher (OIDC) — sem NPM_TOKEN.
+          # Requer id-token:write (acima) e Trusted Publisher configurado
+          # em https://www.npmjs.com/package/cpf-cnpj-validator/access
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true

@@ -51,6 +51,9 @@ npm install class-validator reflect-metadata   # NestJS
 ```ts
 import { cpf, cnpj } from 'cpf-cnpj-validator'
 
+// Alternativa sem colisão com variáveis locais `cpf` / `cnpj`:
+// import { cpfValidator, cnpjValidator } from 'cpf-cnpj-validator'
+
 // ─── CPF ────────────────────────────────────────────────────────
 cpf.isValid('295.379.955-93')     // true
 cpf.isValid('29537995593')         // true
@@ -146,6 +149,10 @@ const schema = joi.object({
 })
 
 await schema.validateAsync({ cpf: '295.379.955-93', cnpj: '12ABC34501DE35' })
+
+// Mensagem customizada inline (padrão consistente entre os 4 adapters):
+joi.document().cpf('CPF precisa ser válido!').required()
+joi.document().cnpj('CNPJ obrigatório').required()
 ```
 
 ### Yup
@@ -276,7 +283,7 @@ Se você usava o `validator` do joi, troque o import:
 
 ```bash
 npm install
-npm run test              # roda vitest (86 testes)
+npm run test              # roda vitest (89 testes)
 npm run test:coverage     # roda com cobertura (100%)
 npm run bench             # roda benchmarks
 npm run typecheck         # verifica tipos

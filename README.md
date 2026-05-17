@@ -339,7 +339,7 @@ E a todos que abriram issues reportando bugs ou pedindo features — cada contri
 
 Se essa lib te economizou tempo em validação de CPF/CNPJ, considere apoiar o desenvolvimento:
 
-<a href="https://www.buymeacoffee.com/carvalhotech" target="_blank">
+<a href="https://buymeacoffee.com/viniciusluiz" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy me a coffee" height="40">
 </a>
 

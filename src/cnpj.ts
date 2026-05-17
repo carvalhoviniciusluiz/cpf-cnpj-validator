@@ -15,6 +15,8 @@ const BLACKLIST = new Set<string>([
 
 const STRICT_STRIP_REGEX = /[./-]/g
 const LOOSE_STRIP_REGEX = /[^\dA-Z]/g
+const STRICT_MASK_REGEX =
+  /^(?:[\dA-Z]{2}\.[\dA-Z]{3}\.[\dA-Z]{3}\/[\dA-Z]{4}-\d{2}|[\dA-Z]{12}\d{2})$/
 const VALID_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 /** Opções para `cnpj.generate()`. */
@@ -78,6 +80,9 @@ function format(value: string): string {
  * ```
  */
 function isValid(value: string, strict?: boolean): boolean {
+  if (strict && (typeof value !== 'string' || !STRICT_MASK_REGEX.test(value))) {
+    return false
+  }
   const stripped = strip(value, strict)
   if (!stripped || stripped.length !== 14 || BLACKLIST.has(stripped)) {
     return false

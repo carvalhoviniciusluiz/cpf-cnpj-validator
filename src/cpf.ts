@@ -16,6 +16,7 @@ const BLACKLIST = new Set<string>([
 
 const STRICT_STRIP_REGEX = /[.-]/g
 const LOOSE_STRIP_REGEX = /[^\d]/g
+const STRICT_MASK_REGEX = /^(?:\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$/
 
 /**
  * Mapa dos 27 UFs brasileiros para seus dígitos de Região Fiscal da
@@ -110,6 +111,9 @@ function format(value: string): string {
  * ```
  */
 function isValid(value: string, strict?: boolean): boolean {
+  if (strict && (typeof value !== 'string' || !STRICT_MASK_REGEX.test(value))) {
+    return false
+  }
   const stripped = strip(value, strict)
   if (!stripped || stripped.length !== 11 || BLACKLIST.has(stripped)) {
     return false

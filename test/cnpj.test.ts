@@ -149,6 +149,31 @@ describe('CNPJ', () => {
   })
 
   /**
+   * SPECIFICATION: Em modo strict, isValid deve aceitar apenas a máscara
+   *                canônica da RFB (XX.XXX.XXX/XXXX-YY) ou 14 caracteres
+   *                crus [0-9A-Z]{12}\d{2}. Caracteres de máscara em
+   *                quantidade ou posição diferentes do canônico quebram
+   *                o shape e devem reprovar a entrada.
+   * BEHAVIOR: cnpj.isValid('12......ABC.345/01DE-35', true) retorna
+   *           false; o mesmo para hífens/barras duplicados ou em
+   *           posição errada.
+   * INTENT: Fechar issue #51 — antes da correção, o strip do strict
+   *         removia /[./-]/g em qualquer quantidade, permitindo que
+   *         entradas malformadas passassem desde que o DV resultante
+   *         conferisse. Strict agora valida o shape ANTES do strip.
+   * FLOW: isValid(value, true) → STRICT_MASK_REGEX.test(value) → false
+   *       antes mesmo de stripar e calcular DV.
+   * @covers src/cnpj.ts isValid (validação de shape em strict)
+   * @see https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/issues/51
+   */
+  test('rejeita CNPJ em strict com caracteres de máscara duplicados', () => {
+    expect(cnpj.isValid('12......ABC.345/01DE-35', true)).toBeFalsy()
+    expect(cnpj.isValid('12.A-----BC.345/01DE-35', true)).toBeFalsy()
+    expect(cnpj.isValid('54.550.752/////0001-55', true)).toBeFalsy()
+    expect(cnpj.isValid('54.550.752/0001---55', true)).toBeFalsy()
+  })
+
+  /**
    * SPECIFICATION: Pergunta 2 do PDF oficial — "DV: Dígito Verificador
    *                utilizando o cálculo pelo módulo 11". O DV resultante
    *                do mod 11 é sempre 0..9 (numérico), pela definição

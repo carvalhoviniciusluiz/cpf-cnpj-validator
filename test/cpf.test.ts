@@ -41,6 +41,27 @@ describe('CPF', () => {
     expect(cpf.isValid('29537995593', true)).toBeTruthy()
   })
 
+  /**
+   * SPECIFICATION: Em modo strict, isValid deve aceitar apenas a máscara
+   *                canônica (XXX.XXX.XXX-XX) ou 11 dígitos crus. Pontos
+   *                e hífens duplicados ou em posição errada quebram o
+   *                shape e devem reprovar a entrada.
+   * BEHAVIOR: cpf.isValid('295......379.955-93', true) retorna false;
+   *           idem para hífens duplicados.
+   * INTENT: Mesma classe de bug do CNPJ (issue #51). O strict do CPF
+   *         removia /[.-]/g em qualquer quantidade, permitindo que
+   *         entradas malformadas passassem desde que o DV final
+   *         conferisse. Corrigido em conjunto com o CNPJ para manter
+   *         consistência semântica entre os dois.
+   * @covers src/cpf.ts isValid (validação de shape em strict)
+   * @see https://github.com/carvalhoviniciusluiz/cpf-cnpj-validator/issues/51
+   */
+  test('rejeita CPF em strict com caracteres de máscara duplicados', () => {
+    expect(cpf.isValid('295......379.955-93', true)).toBeFalsy()
+    expect(cpf.isValid('295.379.955--93', true)).toBeFalsy()
+    expect(cpf.isValid('295..379..955-93', true)).toBeFalsy()
+  })
+
   test('retorna o número não formatado', () => {
     expect(cpf.strip('295.379.955-93')).toEqual('29537995593')
   })

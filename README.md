@@ -295,6 +295,56 @@ Se você usava o `validator` do joi, troque o import:
 
 ---
 
+## Uso com React Native / Expo
+
+A biblioteca utiliza [Subpath Exports](https://nodejs.org/api/packages.html#subpath-exports) e a community condition `"react-native"` dentro do campo `exports` do `package.json`. O Metro Bundler 0.82+ (React Native 0.79+ / Expo SDK 53+) resolve essa condição automaticamente — nenhuma configuração extra é necessária nesses ambientes.
+
+### Expo SDK ≤ 52 (Metro < 0.82)
+
+Versões anteriores do Metro ignoram o campo `exports` por padrão. Para ativá-lo, adicione a flag `unstable_enablePackageExports` no seu `app.json` / `app.config.js`:
+
+```json
+{
+  "expo": {
+    "experiments": {
+      "unstable_enablePackageExports": true
+    }
+  }
+}
+```
+
+Após alterar, limpe o cache do Metro antes de reiniciar:
+
+```bash
+expo start -c
+# ou
+npx expo start --clear
+```
+
+### Configuração do TypeScript
+
+Para que os tipos dos subpaths (ex.: `cpf-cnpj-validator/zod`) sejam resolvidos corretamente, o `moduleResolution` do `tsconfig.json` precisa ser `bundler`, `node16` ou `nodenext`. O valor legado `node` não suporta Subpath Exports e causará erros silenciosos nos tipos:
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    // use "bundler" para projetos Expo/RN modernos
+    "moduleResolution": "bundler"
+  }
+}
+```
+
+> **Resumo por versão**
+>
+> | Ambiente | Ação necessária |
+> |---|---|
+> | Expo SDK 53+ / RN 0.79+ | Nenhuma — `exports` já está ativo por padrão |
+> | Expo SDK ≤ 52 | Adicionar `unstable_enablePackageExports: true` + `expo start -c` |
+> | TypeScript com `moduleResolution: "node"` | Migrar para `"bundler"` ou `"node16"` |
+
+---
+
 ## Desenvolvimento
 
 ```bash

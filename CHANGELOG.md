@@ -1,5 +1,11 @@
 # cpf-cnpj-validator
 
+## 2.1.2
+
+### Patch Changes
+
+- 8420d2f: fix: add react-native community condition to subpath exports to support Metro Bundler
+
 ## 2.1.1
 
 ### Patch Changes
